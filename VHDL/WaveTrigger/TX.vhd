@@ -1,0 +1,89 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+use IEEE.NUMERIC_STD.ALL;
+
+Entity TX is
+port(
+	clock: 	in 	STD_LOGIC;
+	ok:		in 	STD_LOGIC;
+	e: 		in 	STD_LOGIC_VECTOR(0 to 7);
+	s: 		out 	STD_LOGIC := '1');
+end entity;
+Architecture N of TX is
+	signal count0: integer range 0 to 2500;	--Variavel inteira para controle do clock de envio
+	signal count1: integer range 0 to 10;		--Variavel para controle dos estados do processo de envio
+	signal clock1: bit;								--Bit que terá seu estado alternado para servir de clock do TX
+	signal reg0: 	STD_LOGIC_VECTOR(0 to 7);				--Registradores 0 e 1 para receberem alternadamente o valor das
+	signal reg1: 	STD_LOGIC_VECTOR(0 to 7);				--chaves para verificar alterações no seu conteúdo
+	signal flag0: 	integer range 0 to 1;			--bits que servirão de flag para iniciar e parar estados dos processos
+begin
+	process(clock)
+	begin
+		if clock'event and clock = '0' then
+			if count0 = 2500 then
+				clock1 <= not clock1;
+				count0 <= 0;
+			else
+				count0 <= count0 + 1;
+			end if;
+		end if;
+	end process;
+process(clock1)							--Processo que representa o TX, enviando os bits atravéz da porta ‘s’
+	begin
+		if clock1'event and clock1 = '0' then
+--			if clock= '0' then		--Armazena o valor da entrada e em r0 durante a borda baixa do clock
+--				reg0 <= e;
+--			elsif clock1 = '1' then	--Armazena o valor da entrada ‘e’ em ‘r1’ durante a borda alta do clock
+--				reg1 <= e;	
+--			end if;
+--			if flag1 = 0 then			--flag1 inicia com valor ‘0’, logo assim q o programa iniciar a saida
+--				s <= '1';				--receberá ‘1’, para entrar no estado normal de não transmição
+--				flag1 <= 1;				--flag1 recebe ‘1’ para não alterar mais o valor de ‘s’.
+--			end if;
+
+
+--			if reg0 = reg1 then		--flag0 irá indicar que houve mudança de valor em ‘e’, 
+--				flag0 <= 0;				--medindo se reg0 é igual a reg1,
+--			else							--se for diferente o flag0 recebe ‘1’,
+--				flag0 <= 1;				--iniciando o envio dos 10 bits
+--			end if;
+			
+			
+			if ok = '0' and count1 = 0 then	--Se flag0 for 1(devido ao if anterior) e count1 = 0
+				s <= '0';							--Saida ‘s’ recebe bit ‘0’ (start bit)
+				count1 <= count1 + 1;			--count1 é incrementado
+			elsif count1 = 1 then
+				s <= e(0);							--No estado (count1 = 1) ‘s’ recebe primeiro bit ‘e(0)’
+				count1 <= count1 + 1;
+			elsif count1 = 2 then
+				s <= e(1);							--No estado (count1 = 2) ‘s’ recebe segundo bit ‘e(1)’
+				count1 <= count1 + 1;
+			elsif count1 = 3 then
+				s <= e(2);							--No estado (count1 = 3) ‘s’ recebe terceiro bit ‘e(2)’
+				count1 <= count1 + 1;
+			elsif count1 = 4 then
+				s <= e(3);		--No estado (count1 = 4) ‘s’ recebe quarto bit ‘e(3)’
+				count1 <= count1 + 1;
+			elsif count1 = 5 then
+				s <= e(4);		--No estado (count1 = 5) ‘s’ recebe quinto bit ‘e(4)’
+				count1 <= count1 + 1;
+			elsif count1 = 6 then
+				s <= e(5);		--No estado (count1 = 6) ‘s’ recebe sexto bit ‘e(5)’
+				count1 <= count1 + 1;
+			elsif count1 = 7 then
+				s <= e(6);		--No estado (count1 = 7) ‘s’ recebe setimo bit ‘e(6)’
+				count1 <= count1 + 1;
+			elsif count1 = 8 then
+				s <= e(7);		--No estado (count1 = 8) ‘s’ recebe oitavo bit ‘e(7)’
+				count1 <= count1 + 1;
+			elsif count1 = 9 then
+				s <= '1';			--No estado (count1 = 9) ‘s’ recebe bit ‘1’ (end bit)
+				count1 <= count1 + 1;
+			elsif count1 = 10 then
+				s <= '1';			--No estado (count1 = 10) ‘s’ recebe bit ‘1’ (end bit)
+				count1 <= 0;		--count1 volta ao estado 0
+			end if;
+		end if;
+	end process;
+
+END Architecture;

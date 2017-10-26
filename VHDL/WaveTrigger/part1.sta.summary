@@ -1,0 +1,77 @@
+------------------------------------------------------------
+TimeQuest Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow Model Setup 'CLOCK_50'
+Slack : -13.395
+TNS   : -456.670
+
+Type  : Slow Model Setup 'RX:rcv|clock2'
+Slack : -3.778
+TNS   : -95.774
+
+Type  : Slow Model Setup 'clock_00000010'
+Slack : -0.746
+TNS   : -2.389
+
+Type  : Slow Model Hold 'CLOCK_50'
+Slack : -2.696
+TNS   : -5.386
+
+Type  : Slow Model Hold 'RX:rcv|clock2'
+Slack : 0.445
+TNS   : 0.000
+
+Type  : Slow Model Hold 'clock_00000010'
+Slack : 0.445
+TNS   : 0.000
+
+Type  : Slow Model Minimum Pulse Width 'RX:rcv|clock2'
+Slack : -0.611
+TNS   : -36.660
+
+Type  : Slow Model Minimum Pulse Width 'clock_00000010'
+Slack : -0.611
+TNS   : -6.110
+
+Type  : Slow Model Minimum Pulse Width 'CLOCK_50'
+Slack : 15.954
+TNS   : 0.000
+
+Type  : Fast Model Setup 'CLOCK_50'
+Slack : -4.098
+TNS   : -148.959
+
+Type  : Fast Model Setup 'RX:rcv|clock2'
+Slack : -0.831
+TNS   : -19.784
+
+Type  : Fast Model Setup 'clock_00000010'
+Slack : 0.314
+TNS   : 0.000
+
+Type  : Fast Model Hold 'CLOCK_50'
+Slack : -1.726
+TNS   : -3.446
+
+Type  : Fast Model Hold 'RX:rcv|clock2'
+Slack : 0.215
+TNS   : 0.000
+
+Type  : Fast Model Hold 'clock_00000010'
+Slack : 0.215
+TNS   : 0.000
+
+Type  : Fast Model Minimum Pulse Width 'RX:rcv|clock2'
+Slack : -0.500
+TNS   : -30.000
+
+Type  : Fast Model Minimum Pulse Width 'clock_00000010'
+Slack : -0.500
+TNS   : -5.000
+
+Type  : Fast Model Minimum Pulse Width 'CLOCK_50'
+Slack : 16.391
+TNS   : 0.000
+
+------------------------------------------------------------
